@@ -62,7 +62,7 @@ public class Descargador
 			}
 
 			if(Utilidades.GetParametro("--", url, "outdir") == ""){
-				url += " --outdir \""+MainClass.configs.rutaDescargas+"\" ";
+				url += " --outdir \""+MainClass.configs.rutaDescargas.Replace("\\","\\\\")+"\" ";
 			}
 
 			if(MainClass.configs.proxy != null && MainClass.configs.proxy != ""){
