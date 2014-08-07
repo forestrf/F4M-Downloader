@@ -11,14 +11,14 @@ public class Utilidades
 		return (int)(DateTime.Now - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
 	}
 
-	public static string ReemplazaParametro(string input, string parameter, string replacement){
-		string pattern = "-"+parameter+" ((\".*?\")|([^ ]*))";
+	public static string ReemplazaParametro(string start, string input, string parameter, string replacement){
+		string pattern = start+parameter+" ((\".*?\")|([^ ]*))";
 		Regex rgx = new Regex(pattern);
-		return rgx.Replace(input, "-"+parameter+" \""+replacement+"\" ");
+		return rgx.Replace(input, start+parameter+" \""+replacement+"\" ");
 	}
 
-	public static string GetParametro(string input, string parameter){
-		string pattern = "-"+parameter+" ((\".*?\")|([^ ]*))";
+	public static string GetParametro(string start, string input, string parameter){
+		string pattern = start+parameter+" ((\".*?\")|([^ ]*))";
 		Regex rgx = new Regex(pattern);
 		MatchCollection matches = rgx.Matches(input);
 		if(matches.Count > 0){

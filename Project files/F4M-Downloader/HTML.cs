@@ -62,10 +62,10 @@ public static class HTML
 						"<input type=\"hidden\" name=\"accion\" value=\"descargar\">" +
 						"<input type=\"hidden\" name=\"cerrarVentana\" value=\"0\">" +
 						"<div class=\"elemento\">" +
-							"<div>URL F4M: </div><div><input type=\"text\" name=\"url\" size=\"60\" placeholder=\"url del manifest f4m\"></div>" +
+							"<div>Comando: </div><div><input type=\"text\" name=\"url\" size=\"60\" placeholder=\"--manifest url f4m\"></div>" +
 						"</div>" +
 						"<div class=\"elemento\">" +
-							"<div>Nombre: </div><div><input type=\"text\" name=\"nombre\" size=\"60\" value=\"\" placeholder=\"nombre.mp4\"></div>" +
+							"<div>Nombre: </div><div><input type=\"text\" name=\"nombre\" size=\"60\" value=\"\" placeholder=\"nombre del archivo de vídeo\"></div>" +
 						"</div>" +
 						"<div class=\"elemento\">" +
 							"<div><input type=\"submit\" value=\"Agregar\"></div><div></div>" +
@@ -152,7 +152,7 @@ public static class HTML
 						"<li>Enlace a la sección de versiones del programa en Descargavideos.<br>" +
 							"Al hacer clic en el enlace se abrirá una página con el listado de versiones publicadas donde podrás descargar la más reciente o cualquiera de las versiones anteriores.</li>" +
 						"<li>Formulario para agregar nuevas descargas.<br>" +
-							"En caso de querer agregar manualmente una descarga, introduce la url del archivo f4m y escribe el nombre que quieres que tenga el vídeo en el campo Nombre (En caso de no indicar un nombre se usara el nombre especificado en el comando). El nombre del vídeo debe tener la extensión del archivo, siendo un nombre válido por ejemplo <i>video.mp4</i> o <i>capítulo 15.mp4</i>. El nombre puede dejarse en blanco.<br>Una vez completado el formulario al clicar <i>Agregar</i> comenzará la descarga del vídeo.</li>" +
+							"En caso de querer agregar manualmente una descarga, introduce la url del archivo f4m y escribe el nombre que quieres que tenga el vídeo en el campo Nombre (En caso de no indicar un nombre se usara el nombre especificado en el comando). El nombre del vídeo debe tener la extensión del archivo, siendo un nombre válido por ejemplo <i>video</i> o <i>capítulo 15</i>. El nombre puede dejarse en blanco.<br>Una vez completado el formulario al clicar <i>Agregar</i> comenzará la descarga del vídeo.</li>" +
 						"<li>Nombre del archivo tal y como figura en la carpeta que lo contiene.</li>" +
 						"<li>URL del manifest F4M que contiene las indicaciones para descargar el vídeo.</li>" +
 						"<li>Progreso de la descarga.<br>" +

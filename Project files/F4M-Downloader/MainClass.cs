@@ -11,7 +11,7 @@ using System.Net;
 
 public static class MainClass
 {
-	public static string rtmpdumpFile = "";
+	public static string adobeHDSFile = "";
 	public static string relativePath = "";
 
 	public static string version = "0.0.1";
@@ -39,13 +39,13 @@ public static class MainClass
 		relativePath = AppDomain.CurrentDomain.BaseDirectory;
 
 		if (File.Exists (relativePath + "adobehds\\AdobeHDS.exe")) {
-			rtmpdumpFile = relativePath + "adobehds\\AdobeHDS.exe";
+			adobeHDSFile = relativePath + "adobehds\\AdobeHDS.exe";
 			Debug.WriteLine(Utilidades.WL("AdobeHDS encontrado en: "+relativePath + "\\adobehds\\AdobeHDS.exe"));
 		} else if (File.Exists (relativePath + "AdobeHDS.exe")) {
-			rtmpdumpFile = relativePath + "AdobeHDS.exe";
+			adobeHDSFile = relativePath + "AdobeHDS.exe";
 			Debug.WriteLine(Utilidades.WL("AdobeHDS encontrado en: "+relativePath + "AdobeHDS.exe"));
 		}
-		if (rtmpdumpFile == "") {
+		if (adobeHDSFile == "") {
 			//No se encuentra el archivo necesario
 			Debug.WriteLine(Utilidades.WL("AdobeHDS NO encontrado"));
 
@@ -310,14 +310,14 @@ public static class MainClass
 		Descargador miDescargador = new Descargador ();
 
 		if (nombre == "") {
-			nombre = Utilidades.GetParametro (url, "o");
+			nombre = Utilidades.GetParametro ("--", url, "outfile");
 		}
 
 		if (nombre == "") {
-			nombre = "video.mp4";
+			nombre = "video";
 		}
 		for (int j=1; File.Exists(nombre); j++) {
-			nombre = "video" + j + ".mp4";
+			nombre = "video" + j;
 		}
 
 		if (miDescargador.Comienza (url, nombre)) {

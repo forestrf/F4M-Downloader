@@ -19,8 +19,8 @@ public class Descargador
 	Boolean cancelado = false;
 	public String fallado = "";
 	
-	ProcessStartInfo procesoRTMPDUMP;
-	Process exeProcessProcesoRTMPDUMP;
+	ProcessStartInfo procesoAdobeHDS;
+	Process exeProcessProcesoAdobeHDS;
 
 	
 	public bool Comienza (string url, string nombre)
@@ -35,9 +35,9 @@ public class Descargador
 	public void Cancelar ()
 	{
 		Debug.WriteLine(Utilidades.WL("Cancelando descarga = "+url));
-		if(exeProcessProcesoRTMPDUMP!=null)
-			if(!exeProcessProcesoRTMPDUMP.HasExited)
-				exeProcessProcesoRTMPDUMP.Kill();
+		if(exeProcessProcesoAdobeHDS!=null)
+			if(!exeProcessProcesoAdobeHDS.HasExited)
+				exeProcessProcesoAdobeHDS.Kill();
 		cancelado = true;
 		Console.WriteLine ("");
 		Console.WriteLine ("Descarga candelada.");
@@ -53,60 +53,61 @@ public class Descargador
 		try {
 			Console.WriteLine ("Descargando. Espere por favor...");
 
-			if(nombre != "")
-				url = Utilidades.ReemplazaParametro (url, "o", nombre);
+			if(nombre != ""){
+				if(Utilidades.GetParametro("--", url, "outfile") == ""){
+					url += " --outfile \""+nombre+"\" ";
+				} else {
+					url = Utilidades.ReemplazaParametro ("--", url, "outfile", nombre);
+				}
+			}
 
-			string parametroO = Utilidades.GetParametro(url, "o");
-			if(parametroO.IndexOf(":\\") == -1){
-				url = Utilidades.ReemplazaParametro (url, "o", MainClass.configs.rutaDescargas + parametroO);
+			if(Utilidades.GetParametro("--", url, "outdir") == ""){
+				url += " --outdir \""+MainClass.configs.rutaDescargas+"\" ";
 			}
 
 			if(MainClass.configs.proxy != null && MainClass.configs.proxy != ""){
-				if(Utilidades.GetParametro(url, "S")!=""){
-					url = Utilidades.ReemplazaParametro (url, "S", MainClass.configs.proxy);
+				if(Utilidades.GetParametro("--", url, "proxy")!=""){
+					url = Utilidades.ReemplazaParametro ("--", url, "proxy", MainClass.configs.proxy);
 				}
 				else{
-					url += " -S \""+MainClass.configs.proxy+"\"";
+					url += " --fproxy --proxy \""+MainClass.configs.proxy+"\" ";
 				}
 			}
 
-			Debug.WriteLine(Utilidades.WL("Iniciando proceso RTMPDump para = "+url));
-			procesoRTMPDUMP = new ProcessStartInfo ();
-			procesoRTMPDUMP.FileName = MainClass.rtmpdumpFile;
-			procesoRTMPDUMP.Arguments = url;
+			url += " --delete";
 
-			procesoRTMPDUMP.UseShellExecute = false;
-			procesoRTMPDUMP.RedirectStandardOutput = true;
-			procesoRTMPDUMP.RedirectStandardError = true;
-			procesoRTMPDUMP.CreateNoWindow = true;
+			Debug.WriteLine(Utilidades.WL("Iniciando proceso AdobeHDS para = "+url));
+			procesoAdobeHDS = new ProcessStartInfo ();
+			procesoAdobeHDS.FileName = MainClass.adobeHDSFile;
+			procesoAdobeHDS.Arguments = url;
+
+			procesoAdobeHDS.UseShellExecute = false;
+			procesoAdobeHDS.RedirectStandardOutput = true;
+			procesoAdobeHDS.RedirectStandardError = true;
+			procesoAdobeHDS.CreateNoWindow = true;
 
 
-			exeProcessProcesoRTMPDUMP = Process.Start (procesoRTMPDUMP);
+			exeProcessProcesoAdobeHDS = Process.Start (procesoAdobeHDS);
 			Console.WriteLine ("");
-			Console.WriteLine ("RTMPDump lanzado con los parámetros:");
-			Console.WriteLine ("rtmpdump "+url);
-			Debug.WriteLine(Utilidades.WL("RTMPDump arrancado para = "+url));
+			Console.WriteLine ("AdobeHDS lanzado con los parámetros:");
+			Console.WriteLine ("AdobeHDS "+url);
+			Debug.WriteLine(Utilidades.WL("AdobeHDS arrancado para = "+url));
 
-			exeProcessProcesoRTMPDUMP.OutputDataReceived += p_OutputDataReceived;
-			exeProcessProcesoRTMPDUMP.ErrorDataReceived += p_ErrorDataReceived;
+			exeProcessProcesoAdobeHDS.OutputDataReceived += p_OutputDataReceived;
+			exeProcessProcesoAdobeHDS.ErrorDataReceived += p_ErrorDataReceived;
 
-			exeProcessProcesoRTMPDUMP.BeginOutputReadLine();
-			exeProcessProcesoRTMPDUMP.BeginErrorReadLine();
+			exeProcessProcesoAdobeHDS.BeginOutputReadLine();
+			exeProcessProcesoAdobeHDS.BeginErrorReadLine();
 
-			exeProcessProcesoRTMPDUMP.WaitForExit ();
+			exeProcessProcesoAdobeHDS.WaitForExit ();
 		} catch (Exception e) {
 			//En caso de que FFmpeg falle no siempre dara excepcion (por ejemplo, cuando es necesario cambiar de proxy el server los enlaces no funcionan bien, pero no se activa este fallo)
-			Console.WriteLine ("RTMPDump ha fallado.");
-			Debug.WriteLine(Utilidades.WL("RTMPDump ha fallado"));
+			Console.WriteLine ("AdobeHDS ha fallado.");
+			Debug.WriteLine(Utilidades.WL("AdobeHDS ha fallado"));
 			Debug.WriteLine(Utilidades.WL(e.ToString()));
-			fallado = "RTMPDump ha fallado";
+			fallado = "AdobeHDS ha fallado";
 			return false;
 		}
-
-		//if(!cancelado)
-		//	return true;
-		//else
-		//	return true;
 
 		if (porcentajeInt == 0)
 			fallado = "Fallo";
@@ -119,27 +120,29 @@ public class Descargador
 		return !cancelado;
 	}
 
-	public void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
-	{
-		//FFMPEG NO USA ESTO
-		System.Diagnostics.Debug.WriteLine("Received from standard out: " + e.Data);
-	}
-
 	public void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
 	{
+		//FFMPEG NO USA ESTO
 		System.Diagnostics.Debug.WriteLine("Received from standard error: " + e.Data);
+	}
+
+	public void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
+	{
+		System.Diagnostics.Debug.WriteLine("Received from standard out: " + e.Data);
 		//System.Diagnostics.Debug.WriteLine(e.Data);
 		if (!String.IsNullOrEmpty(e.Data)) {
-			if (e.Data.IndexOf ("kB / ") > 0) {
+			if (e.Data.IndexOf ("Downloading ") != -1) {
 				if (tiempoTotal == -1) {
-					tiempoTotal = 100;
+					int inicio = e.Data.IndexOf ("/") +1;
+					int final = e.Data.IndexOf (" ", inicio);
+					tiempoTotal = int.Parse(e.Data.Substring(inicio, final - inicio));
 
 					horaInicio = Utilidades.UnixTimestamp();
 				} else {
 					//Console.WriteLine(e.Data);
 
-					int inicio = e.Data.IndexOf ("(") + 1;
-					int final = e.Data.IndexOf ("%", inicio);
+					int inicio = e.Data.IndexOf ("Downloading ") + 12;
+					int final = e.Data.IndexOf ("/", inicio);
 					//0.783 kB / 0.00 sec (0.0%)
 					string tiempo = e.Data.Substring (inicio, final - inicio);
 
