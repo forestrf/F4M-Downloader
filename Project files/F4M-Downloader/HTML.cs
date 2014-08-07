@@ -147,12 +147,12 @@ public static class HTML
 					"<img src=\"/ayuda/ayuda_prev.png\" class=\"img_ayuda\">" +
 					"<ol>" +
 						"<li>Versión del programa." +
-							"<br>En el caso de la imagen se trata de la versión 0.1.<br>" +
+							"<br>En el caso de la imagen se trata de la versión 0.0.1.<br>" +
 							"Si queremos buscar actualizaciones, se entenderá como una versión superior aquella que tenga un número mayor que el actual, siendo por ejemplo la versión 2.0 superior a la 1.5 y a su vez superior a la versión 0.3.</li>" +
 						"<li>Enlace a la sección de versiones del programa en Descargavideos.<br>" +
 							"Al hacer clic en el enlace se abrirá una página con el listado de versiones publicadas donde podrás descargar la más reciente o cualquiera de las versiones anteriores.</li>" +
 						"<li>Formulario para agregar nuevas descargas.<br>" +
-							"En caso de querer agregar manualmente una descarga, introduce la url del archivo f4m y escribe el nombre que quieres que tenga el vídeo en el campo Nombre (En caso de no indicar un nombre se usara el nombre especificado en el comando). El nombre del vídeo debe tener la extensión del archivo, siendo un nombre válido por ejemplo <i>video</i> o <i>capítulo 15</i>. El nombre puede dejarse en blanco.<br>Una vez completado el formulario al clicar <i>Agregar</i> comenzará la descarga del vídeo.</li>" +
+							"En caso de querer agregar manualmente una descarga, introduce la url del archivo f4m siguiendo el patrón (--manifest \"URL\"), sin los paréntesis y cambiando URL por la url del archivo f4m. Eescribe el nombre que quieres que tenga el vídeo en el campo Nombre (En caso de no indicar un nombre se usara el nombre especificado en el comando). El nombre del vídeo debe tener la extensión del archivo, siendo un nombre válido por ejemplo <i>video</i> o <i>capítulo 15</i>. El nombre puede dejarse en blanco.<br>Una vez completado el formulario al clicar <i>Agregar</i> comenzará la descarga del vídeo.</li>" +
 						"<li>Nombre del archivo tal y como figura en la carpeta que lo contiene.</li>" +
 						"<li>URL del manifest F4M que contiene las indicaciones para descargar el vídeo.</li>" +
 						"<li>Progreso de la descarga.<br>" +
@@ -163,7 +163,7 @@ public static class HTML
 							"En caso de que la descarga no esté finalizada detendrá la descarga y la quitará de la lista, dejando el archivo incompleto en la carpeta de descargas.<br>" +
 							"En caso de que la descarga esté finalizada, únicamente la quitará de la lista.</li>" +
 						"<li>Cerrar el programa.<br>" +
-							"Para cerrar el programa se debe de hacer clic en el botón. Al hacerlo, se mostrará una pregunta. En caso de que aceptemos, todas las descargas incompletas en curso se interrumpirán y después se cerrará el programa. De lo contrario únicamente se cerrará el programa. Una vez hecho esto cargará una nueva página en la que indicará que se puede cerrar la consola. La ventana negra que se abre junto con el programa.<br>En caso de cerrar esta ventana sin clicar antes en el botón de cerrar dejará las descargas en proceso abiertas, por lo que para detenerlas sería necesario cerrar el proceso en cuestión.</li>" +
+							"Para cerrar el programa se debe de hacer clic en el botón. Al hacerlo, se mostrará una pregunta. En caso de que aceptemos, todas las descargas incompletas en curso se interrumpirán y después se cerrará el programa. De lo contrario no se cerrará el programa. Una vez hecho esto cargará una nueva página en la que indicará que el programa se ha cerrado con éxito.<br>En caso de cerrar la consola (la ventana negra) en lugar de clicar en el botón de cerrar dejará las descargas en proceso abiertas, por lo que para detenerlas sería necesario cerrar el proceso en cuestión.</li>" +
 					"</ol>" +
 					"<a href=\"/\">atras</a>" +
 				"</div>" +
