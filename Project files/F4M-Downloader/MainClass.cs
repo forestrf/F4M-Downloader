@@ -14,7 +14,7 @@ public static class MainClass
 	public static string adobeHDSFile = "";
 	public static string relativePath = "";
 
-	public static string version = "0.0.1";
+	public static string version = "0.0.2";
 	
 	public static int puerto = 25435;
 
