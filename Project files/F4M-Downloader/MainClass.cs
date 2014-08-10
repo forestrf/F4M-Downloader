@@ -102,7 +102,8 @@ public static class MainClass
 		Debug.WriteLine(Utilidades.WL("Servidor arrancado"));
 		
 		//Abre navegador
-		Process.Start("http://127.0.0.1:"+puerto+"/");
+		ProcessStartInfo sInfo = new ProcessStartInfo("http://127.0.0.1:"+puerto+"/");  
+		Process.Start(sInfo);
 		
 		while(true) {
 			if (forzarSalida) {
