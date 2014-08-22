@@ -14,7 +14,7 @@ public static class MainClass
 	public static string adobeHDSFile = "";
 	public static string relativePath = "";
 
-	public static string version = "0.0.2";
+	public static string version = "0.0.3";
 	
 	public static int puerto = 25435;
 
@@ -321,15 +321,7 @@ public static class MainClass
 			nombre = "video" + j;
 		}
 
-		if (miDescargador.Comienza (url, nombre)) {
-			//Abrir carpeta que tiene el video
-			//string myDocspath = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			string windir = Environment.GetEnvironmentVariable ("WINDIR");
-			System.Diagnostics.Process prc = new System.Diagnostics.Process ();
-			prc.StartInfo.FileName = windir + @"\explorer.exe";
-			prc.StartInfo.Arguments = configs.rutaDescargas;
-			prc.Start ();
-		}
+		miDescargador.Comienza (url, nombre);
 		
 	}
 }
