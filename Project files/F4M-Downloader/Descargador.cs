@@ -17,7 +17,7 @@ public class Descargador
 	public string horaRestanteString = "";
 	
 	Boolean cancelado = false;
-	public String fallado = "";
+	public String estado = "";
 	
 	ProcessStartInfo procesoAdobeHDS;
 	Process exeProcessProcesoAdobeHDS;
@@ -105,19 +105,20 @@ public class Descargador
 			Console.WriteLine ("AdobeHDS ha fallado.");
 			Debug.WriteLine(Utilidades.WL("AdobeHDS ha fallado"));
 			Debug.WriteLine(Utilidades.WL(e.ToString()));
-			fallado = "AdobeHDS ha fallado";
+			estado = "AdobeHDS ha fallado";
 			return false;
 		}
 
 		if (porcentajeInt == 0)
-			fallado = "Fallo";
+			estado = "Fallo";
 		else {
 			porcentaje = 100;
 			porcentajeInt = 100;
+			estado = "Terminado";
 		}
 
 		
-		return !cancelado;
+		return !cancelado && estado == "Terminado";
 	}
 
 	public void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
