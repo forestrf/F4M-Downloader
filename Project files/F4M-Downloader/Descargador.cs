@@ -40,7 +40,7 @@ public class Descargador
 				exeProcessProcesoAdobeHDS.Kill();
 		cancelado = true;
 		Console.WriteLine ("");
-		Console.WriteLine ("Descarga candelada.");
+		Console.WriteLine ("Descarga cancelada.");
 		Console.WriteLine ("");
 		Debug.WriteLine(Utilidades.WL("descarga cancelada = "+url));
 	}
@@ -74,7 +74,9 @@ public class Descargador
 				}
 			}
 
-			url += " --delete";
+			// borrar desde adobehds cuando se termine la descarga
+			//url += " --delete";
+			url += " --deleteend"; // Borrar los archivos temporales cuando la descarga esté completada, no antes.
 
 			Debug.WriteLine(Utilidades.WL("Iniciando proceso AdobeHDS para = "+url));
 			procesoAdobeHDS = new ProcessStartInfo ();

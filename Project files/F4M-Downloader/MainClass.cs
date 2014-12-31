@@ -14,7 +14,7 @@ public static class MainClass
 	public static string adobeHDSFile = "";
 	public static string relativePath = "";
 
-	public static string version = "0.0.4";
+	public static string version = "0.1";
 	
 	public static int puerto = 25435;
 
@@ -38,9 +38,9 @@ public static class MainClass
 
 		relativePath = AppDomain.CurrentDomain.BaseDirectory;
 
-		if (File.Exists (relativePath + "adobehds\\AdobeHDS.exe")) {
-			adobeHDSFile = relativePath + "adobehds\\AdobeHDS.exe";
-			Debug.WriteLine(Utilidades.WL("AdobeHDS encontrado en: "+relativePath + "\\adobehds\\AdobeHDS.exe"));
+		if (File.Exists (relativePath + "adobehds/AdobeHDS.exe")) {
+			adobeHDSFile = relativePath + "adobehds/AdobeHDS.exe";
+			Debug.WriteLine(Utilidades.WL("AdobeHDS encontrado en: "+relativePath + "/adobehds/AdobeHDS.exe"));
 		} else if (File.Exists (relativePath + "AdobeHDS.exe")) {
 			adobeHDSFile = relativePath + "AdobeHDS.exe";
 			Debug.WriteLine(Utilidades.WL("AdobeHDS encontrado en: "+relativePath + "AdobeHDS.exe"));
